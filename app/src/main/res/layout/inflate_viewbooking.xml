@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/tools"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="15dp"
+    android:clickable="true"
+    app:ignore="NamespaceTypo"
+    card_view:cardCornerRadius="15dp"
+    card_view:cardElevation="4dp"
+    card_view:cardMaxElevation="6dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="10dp"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal"
+            android:weightSum="2"
+            >
+        <TextView
+            android:id="@+id/txt_booking"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:text="123456"
+            android:gravity="center_vertical"
+            android:textColor="@color/black"
+            android:layout_weight="2"
+            />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="Confirmed"
+            android:gravity="center_vertical"
+            android:textColor="@color/black"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal"
+            android:weightSum="2"
+            >
+            <TextView
+                android:id="@+id/txt_count"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:text="10"
+                android:gravity="center_vertical"
+                android:textColor="@color/black"
+                android:layout_weight="1"
+                />
+
+            <TextView
+                android:id="@+id/txt_price"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:text="7.39"
+                android:gravity="center_vertical|end"
+                android:textColor="@color/black"
+                android:layout_weight="1"
+                />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="10:00 - 11:00"
+            android:gravity="center_vertical"
+            android:textColor="@color/black"
+            />
+    </LinearLayout>
+
+</com.google.android.material.card.MaterialCardView>
+

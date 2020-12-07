@@ -2,4 +2,25 @@
     <string name="app_name">CanteenReservationSystem</string>
     <string name="login_email_hint">Email</string>
     <string name="login_password_hint">Password</string>
+    <string name="openDrawer">open_drawer</string>
+    <string name="closeDrawer">close_drawer</string>
+    <string-array name="nav_item_activity_titles">
+        <item>Booking</item>
+        <item>Menu</item>
+        <item>Movies</item>
+        <item>Notifications</item>
+        <item>Settings</item>
+    </string-array>
+
+    <string-array name="slot_time">
+        <item>08:00 - 09:00</item>
+        <item>09:00 - 10:00</item>
+        <item>10:00 - 11:00</item>
+        <item>11:00 - 12:00</item>
+        <item>12:00 - 01:00</item>
+        <item>01:00 - 02:00</item>
+        <item>03:00 - 04:00</item>
+        <item>04:00 - 05:00</item>
+
+    </string-array>
 </resources>

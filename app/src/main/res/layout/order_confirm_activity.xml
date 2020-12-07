@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_gradient"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/app_bar"
+        android:layout_above="@+id/lay_btn"
+        >
+
+        <ScrollView
+            android:id="@+id/scrollView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fitsSystemWindows="true"
+            android:fillViewport="true">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                >
+
+                <EditText
+                    android:id="@+id/ed_comments"
+                    android:layout_width="match_parent"
+                    android:layout_height="70dp"
+                    android:layout_below="@+id/txt_warning"
+                    android:layout_margin="5dp"
+                    android:background="@drawable/border_design"
+                    android:maxLength="100"
+                    android:hint="Notes..."
+                    android:padding="15dp" />
+
+                <LinearLayout
+                    android:id="@+id/lay_payment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/lay_frame"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:weightSum="2">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:padding="15dp"
+                            android:text="Item Total"
+                            android:textColor="@color/black" />
+
+                        <TextView
+                            android:id="@+id/txt_itemcount"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="end"
+                            android:padding="15dp"
+                            android:text="Item Total"
+                            android:textColor="@color/black" />
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:weightSum="2">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:padding="15dp"
+                            android:text="Offers Discount *"
+                            android:textColor="@color/black" />
+
+                        <TextView
+                            android:id="@+id/txt_discount"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="end"
+                            android:padding="15dp"
+                            android:text="Item Total"
+                            android:textColor="@color/black" />
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:weightSum="2">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:padding="15dp"
+                            android:text="Service Charge"
+                            android:textColor="@color/black" />
+
+                        <TextView
+                            android:id="@+id/txt_servicecharge"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="end"
+                            android:padding="15dp"
+                            android:text="Item Total"
+                            android:textColor="@color/black" />
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:weightSum="2">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:padding="15dp"
+                            android:text="To Pay"
+                            android:textColor="@color/black"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/txt_pay"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="end"
+                            android:padding="15dp"
+                            android:text="Item Total"
+                            android:textColor="@color/black"
+                            android:textStyle="bold" />
+
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+
+
+                <LinearLayout
+                    android:id="@+id/lay_frame"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="10dp"
+                    android:layout_below="@+id/ed_comments" />
+
+                <TextView
+                    android:id="@+id/txt_instruction"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/chip_cloud"
+                    android:padding="15dp"
+                    android:text="* You can collect your order at the university canteen anytime in the time slot you have selected.
+                    \n* Payment can be made at the counter in your university canteen.
+
+                    \n*10% discount** is provided on Total Amount to be Paid.
+                    \n*Applicable only for off-peak slot reservations (10 AM to 11 AM) and (03 PM to 04 PM) everyday. "
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:id="@+id/txt_warning"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:padding="5dp"
+                    android:textColor="@color/black"
+                    android:text="If you or someone you are ordering for has a food alergy or intolerance,please let us Know..."
+
+                    android:textStyle="italic" />
+
+                <View
+                    android:id="@+id/view"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_below="@+id/lay_payment"
+                    android:background="@color/colorPrimary" />
+
+                <TextView
+                    android:id="@+id/txt_time"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Book Slot : *"
+                    android:padding="15dp"
+                    android:textColor="@color/black"
+                    android:layout_below="@+id/view"
+                    />
+
+                <com.adroitandroid.chipcloud.ChipCloud
+                    xmlns:chipcloud="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/chip_cloud"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    chipcloud:deselectedColor="@color/colorAccent"
+                    chipcloud:deselectedFontColor="@color/colorPrimary"
+                    chipcloud:selectedColor="@color/colorPrimary"
+                    chipcloud:selectedFontColor="@color/colorAccent"
+                    chipcloud:labels="@array/slot_time"
+                    chipcloud:selectMode="required"
+                    chipcloud:allCaps="true"
+                    android:layout_below="@+id/txt_time"
+                    chipcloud:gravity="staggered"
+                    chipcloud:minHorizontalSpacing="32dp"
+                    chipcloud:verticalSpacing="16dp"
+                    chipcloud:textSize="14sp"/>
+
+            </RelativeLayout>
+
+        </ScrollView>
+    </RelativeLayout>
+
+
+        <TextView
+            android:id="@+id/app_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="Your Order"
+            android:textColor="@color/colorPrimary"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+
+
+    <LinearLayout
+        android:id="@+id/lay_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="10dp"
+        >
+
+        <Button
+            android:id="@+id/btn_placeorder"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@color/colorAccent"
+            android:text="Place Order"
+            android:textColor="@color/colorPrimary" />
+
+    </LinearLayout>
+
+</RelativeLayout>

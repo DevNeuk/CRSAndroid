@@ -1,6 +1,5 @@
 package com.example.crs.ui;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -9,7 +8,6 @@ import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -59,7 +57,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     }
 
     public void onLoginClick(View view) {
-        startActivity(new Intent(this, MainActivity.class));
+        startActivity(new Intent(this, LoginActivity.class));
         overridePendingTransition(R.anim.slide_in_left, android.R.anim.slide_out_right);
 
     }
@@ -113,7 +111,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 stopProgressbar();
                 if(userListResponseData.getStatus().equals("1")) {
                     Toast.makeText(RegisterActivity.this, "Successfully Register", Toast.LENGTH_LONG).show();
-                    general.nextpage(MainActivity.class);
+                    general.nextpage(LoginActivity.class);
                 }
             }
 
