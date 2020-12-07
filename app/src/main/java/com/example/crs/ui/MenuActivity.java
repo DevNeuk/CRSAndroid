@@ -24,6 +24,7 @@ import com.example.crs.network.Api;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
@@ -121,13 +122,21 @@ public class MenuActivity extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        Collection<MenuInfo> values = item_select.values();
 
-        //Creating an ArrayList of values
+        if(item_select.size()!=0) {
+            Collection<MenuInfo> values = item_select.values();
 
-        ArrayList<MenuInfo> listOfValues = new ArrayList<MenuInfo>(values);
-        Intent in = new Intent(context,OrderConform.class);
-        General.order_menu = listOfValues;
-        startActivity(in);
+            //Creating an ArrayList of values
+
+            ArrayList<MenuInfo> listOfValues = new ArrayList<MenuInfo>(values);
+            Intent in = new Intent(context, OrderConform.class);
+            General.order_menu = listOfValues;
+            startActivity(in);
+        }else{
+            Toast.makeText(context,"Please choose atleast on Item",Toast.LENGTH_LONG).show();
+        }
     }
+
+
+
 }

@@ -14,11 +14,11 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="10dp"
+        android:padding="5dp"
         android:orientation="vertical">
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:weightSum="2"
             >
@@ -27,6 +27,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:text="123456"
+            android:layout_margin="5dp"
             android:gravity="center_vertical"
             android:textColor="@color/black"
             android:layout_weight="2"
@@ -34,43 +35,50 @@
         </LinearLayout>
 
         <TextView
+            android:id="@+id/txt_status"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
             android:text="Confirmed"
             android:gravity="center_vertical"
             android:textColor="@color/black"
             />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:orientation="horizontal"
-            android:weightSum="2"
-            >
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:orientation="horizontal"-->
+<!--            android:weightSum="2"-->
+<!--            >-->
             <TextView
                 android:id="@+id/txt_count"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
                 android:text="10"
                 android:gravity="center_vertical"
                 android:textColor="@color/black"
                 android:layout_weight="1"
                 />
 
-            <TextView
-                android:id="@+id/txt_price"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:text="7.39"
-                android:gravity="center_vertical|end"
-                android:textColor="@color/black"
-                android:layout_weight="1"
-                />
-        </LinearLayout>
+
+<!--        </LinearLayout>-->
 
         <TextView
+            android:id="@+id/txt_price"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
+            android:text="7.39"
+            android:layout_margin="5dp"
+            android:textColor="@color/black"
+            android:layout_weight="1"
+            />
+
+        <TextView
+            android:id="@+id/txt_timeslot"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
             android:text="10:00 - 11:00"
             android:gravity="center_vertical"
             android:textColor="@color/black"

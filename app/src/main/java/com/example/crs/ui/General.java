@@ -20,6 +20,7 @@ public class General {
     public static final String unique_id = "unique_id";
     public static final String role = "role";
     public static ArrayList<MenuInfo> order_menu = new ArrayList<MenuInfo>();
+    public static Boolean isClosed = Boolean.FALSE;
 
     public General(Context context){
              this.context = context;
@@ -41,5 +42,7 @@ public class General {
         Intent in = new Intent(context,nextClass);
         context.startActivity(in);
     }
+
+
 
 }

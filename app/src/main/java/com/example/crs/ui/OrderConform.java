@@ -3,10 +3,13 @@ package com.example.crs.ui;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -33,6 +36,8 @@ import java.util.List;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -41,7 +46,7 @@ import retrofit2.Response;
 public class OrderConform extends AppCompatActivity implements View.OnClickListener {
     ArrayList<MenuInfo> menu_order;
     LinearLayout rly_frame;
-    TextView txt_itemname,txt_quantity,txt_itemcount,txt_discount,txt_servicecharge,txt_pay;
+    TextView txt_itemname,txt_quantity,txt_itemtotal,txt_discount,txt_servicecharge,txt_pay;
     Boolean isDiscount = false;
     private ChipCloud chipCloud;
     private String[] activityTitles;
@@ -52,6 +57,8 @@ public class OrderConform extends AppCompatActivity implements View.OnClickListe
     General general;
     float afterdis = 0;
     String strSelectedDate;
+    int nItemCount = 0;
+    View view;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,7 +69,7 @@ public class OrderConform extends AppCompatActivity implements View.OnClickListe
         activityTitles = getResources().getStringArray(R.array.slot_time);
         General.order_menu = null;
         rly_frame = findViewById(R.id.lay_frame);
-        txt_itemcount = findViewById(R.id.txt_itemcount);
+        txt_itemtotal = findViewById(R.id.txt_itemtotal);
         txt_discount = findViewById(R.id.txt_discount);
         txt_servicecharge = findViewById(R.id.txt_servicecharge);
         txt_pay = findViewById(R.id.txt_pay);
@@ -70,8 +77,11 @@ public class OrderConform extends AppCompatActivity implements View.OnClickListe
         btn_placeorder = findViewById(R.id.btn_placeorder);
         btn_placeorder.setOnClickListener(this);
         general = new General(this);
+        view = findViewById(R.id.lb_progress);
         sharedpreferences = getSharedPreferences(general.shared_name,
                 Context.MODE_PRIVATE);
+
+        changeStatusBarColor();
 
         chipCloud.setChipListener(new ChipListener() {
             @Override
@@ -127,11 +137,12 @@ public class OrderConform extends AppCompatActivity implements View.OnClickListe
 
     private void addTotalPrice() {
         float nTotalCount = 0;
+        nItemCount = 0;
 
         for (int i = 0; i<menu_order.size();i++)
         {
             nTotalCount = (Float.parseFloat(menu_order.get(i).getItemPrice())*(Float.parseFloat(menu_order.get(i).getItemCount()+"")))+nTotalCount;
-
+            nItemCount = menu_order.get(i).getItemCount()+nItemCount;
         }
         txt_discount.setText("0");
         if(isDiscount){
@@ -142,7 +153,7 @@ public class OrderConform extends AppCompatActivity implements View.OnClickListe
         }else{
             afterdis = nTotalCount;
         }
-        txt_itemcount.setText("£"+String.format("%2.02f", nTotalCount));
+        txt_itemtotal.setText("£"+String.format("%2.02f", nTotalCount));
         txt_servicecharge.setText("£0");
         txt_pay.setText("£"+String.format("%2.02f", afterdis));
     }
@@ -162,11 +173,12 @@ public class OrderConform extends AppCompatActivity implements View.OnClickListe
 
         BookingReq req = new BookingReq();
         req.setUniqueId(sharedpreferences.getString(General.unique_id, null));
-        req.setTotalCount(menu_order.size()+"");
+        req.setTotalCount(nItemCount+"");
         req.setBookingStatus("Confirm");
         req.setTotalPrice(afterdis+"");
         req.setBooking_timeslot(strSelectedDate);
         req.setItems(menu_order);
+        view.setVisibility(View.VISIBLE);
 
         (Api.getClient().sendBookingInfo(req)).
                 enqueue(new Callback<StatusResponse>() {
@@ -174,16 +186,41 @@ public class OrderConform extends AppCompatActivity implements View.OnClickListe
                     public void onResponse(Call<StatusResponse> call, Response<StatusResponse> response) {
                         // if error occurs in network transaction then we can get the error in this method.
                         Log.e("TAG", "onSuccess: "+response.body());
-                        Toast.makeText(OrderConform.this,"SuccessFully Booking",Toast.LENGTH_LONG).show();
+                        view.setVisibility(View.GONE);
+                        Toast.makeText(OrderConform.this,"Order SuccessFull",Toast.LENGTH_LONG).show();
+//                        if (getSupportFragmentManager().getFragments() != null && getSupportFragmentManager().getFragments().size() > 0) {
+//                            for (int i = 0; i < getSupportFragmentManager().getFragments().size(); i++) {
+//                                Fragment mFragment = getSupportFragmentManager().getFragments().get(i);
+//                                if (mFragment != null) {
+//                                    getSupportFragmentManager().beginTransaction().remove(mFragment).commit();
+//                                }
+//                            }
+//                        }
+//                        Intent in = new Intent(OrderConform.this,MainDrawerActivity.class);
+//                        in.putExtra("page","0");
+//                        startActivity(in);
+                        General.isClosed = true;
                         OrderConform.this.finish();
                     }
 
                     @Override
                     public void onFailure(Call<StatusResponse> call, Throwable t) {
                         // if error occurs in network transaction then we can get the error in this method.
+                        view.setVisibility(View.GONE);
+                        Toast.makeText(OrderConform.this,t.toString(),Toast.LENGTH_LONG).show();
                         Log.e("TAG", "onFailure: "+t.toString() );
                     }
                 });
 
     }
+
+    private void changeStatusBarColor() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Window window = getWindow();
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+//            window.setStatusBarColor(Color.TRANSPARENT);
+            window.setStatusBarColor(getResources().getColor(R.color.colorAccent));
+        }
+    }
+
 }

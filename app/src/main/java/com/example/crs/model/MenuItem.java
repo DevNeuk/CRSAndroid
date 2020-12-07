@@ -26,6 +26,17 @@ public class MenuItem{
 	@SerializedName("items")
 	private List<ItemsItem> items;
 
+	public String getBooking_id() {
+		return booking_id;
+	}
+
+	public void setBooking_id(String booking_id) {
+		this.booking_id = booking_id;
+	}
+
+	@SerializedName("booking_id")
+	private String booking_id;
+
 	public void setUniqueId(String uniqueId){
 		this.uniqueId = uniqueId;
 	}

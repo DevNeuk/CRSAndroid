@@ -7,9 +7,7 @@
     <string-array name="nav_item_activity_titles">
         <item>Booking</item>
         <item>Menu</item>
-        <item>Movies</item>
-        <item>Notifications</item>
-        <item>Settings</item>
+        <item>Logout</item>
     </string-array>
 
     <string-array name="slot_time">

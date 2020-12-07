@@ -57,7 +57,7 @@
                             android:textColor="@color/black" />
 
                         <TextView
-                            android:id="@+id/txt_itemcount"
+                            android:id="@+id/txt_itemtotal"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -259,5 +259,13 @@
             android:textColor="@color/colorPrimary" />
 
     </LinearLayout>
+
+    <include
+        android:id="@+id/lb_progress"
+        android:visibility="gone"
+        layout="@layout/layout_progressbar"
+        >
+
+    </include>
 
 </RelativeLayout>

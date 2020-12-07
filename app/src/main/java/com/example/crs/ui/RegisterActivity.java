@@ -110,8 +110,9 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 userListResponseData = response.body();
                 stopProgressbar();
                 if(userListResponseData.getStatus().equals("1")) {
-                    Toast.makeText(RegisterActivity.this, "Successfully Register", Toast.LENGTH_LONG).show();
+                    Toast.makeText(RegisterActivity.this, "Successfully Registered", Toast.LENGTH_LONG).show();
                     general.nextpage(LoginActivity.class);
+                    RegisterActivity.this.finish();
                 }
             }
 

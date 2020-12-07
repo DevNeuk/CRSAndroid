@@ -1,8 +1,12 @@
 package com.example.crs.ui;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,6 +22,7 @@ import com.google.android.material.navigation.NavigationView;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.IntentCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
@@ -33,18 +38,21 @@ public class MainDrawerActivity extends AppCompatActivity implements View.OnClic
     private String[] activityTitles;
     private TextView txtWebsite,txtName;
     private Handler mHandler;
+    private SharedPreferences sharedpreferences;
     // index to identify current nav menu item
     public static int navItemIndex = 0;
 
     // tags used to attach the fragments
     private static final String TAG_BOOKING = "booking";
     private static final String TAG_MENU = "menu";
+    private static final String TAG_LOGOUT = "logout";
     private static final String TAG_ABOUT = "about";
     private static final String PRIVACY = "privacy";
-    private static final String LOGOUT = "logout";
+
     public static String CURRENT_TAG = TAG_BOOKING;
     // flag to load home fragment when user presses back key
     private boolean shouldLoadHomeFragOnBackPress = true;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,10 +70,17 @@ public class MainDrawerActivity extends AppCompatActivity implements View.OnClic
         activityTitles = getResources().getStringArray(R.array.nav_item_activity_titles);
         txtName = (TextView) navHeader.findViewById(R.id.name);
         txtWebsite = (TextView) navHeader.findViewById(R.id.website);
-
+        Intent in = getIntent();
+        if(in.getStringExtra("page")!=null) {
+            navItemIndex = Integer.parseInt(in.getStringExtra("page"));
+            CURRENT_TAG = TAG_BOOKING;
+        }
+        sharedpreferences = getSharedPreferences(general.shared_name,
+                Context.MODE_PRIVATE);
         // load nav menu header data
         loadNavHeader();
 
+        loadHomeFragment();
         // initializing navigation menu
         setUpNavigationView();
 
@@ -81,7 +96,7 @@ public class MainDrawerActivity extends AppCompatActivity implements View.OnClic
 
     private void loadNavHeader() {
         // name, website
-        txtWebsite.setText("Joe Freeda");
+        txtWebsite.setText(sharedpreferences.getString(General.Name, null));
 
 
         // showing dot next to notifications label
@@ -165,6 +180,17 @@ public class MainDrawerActivity extends AppCompatActivity implements View.OnClic
 //                // settings fragment
 //                SettingsFragment settingsFragment = new SettingsFragment();
 //                return settingsFragment;
+            case 2:
+//                // settings fragment
+                SharedPreferences.Editor editor = sharedpreferences.edit();
+                editor.clear();
+                editor.apply();
+                navItemIndex = 0;
+                CURRENT_TAG = TAG_BOOKING;
+//                Intent in = new Intent(MainDrawerActivity.this,LoginActivity.class);
+//                in.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                general.nextpage(LoginActivity.class);
+                finish();
             default:
                 return new ViewBooking();
         }
@@ -196,6 +222,11 @@ public class MainDrawerActivity extends AppCompatActivity implements View.OnClic
                     case R.id.nav_menu:
                         navItemIndex = 1;
                         CURRENT_TAG = TAG_MENU;
+                        break;
+
+                    case R.id.nav_logout:
+                        navItemIndex = 2;
+                        CURRENT_TAG = TAG_LOGOUT;
                         break;
 //                    case R.id.nav_movies:
 //                        navItemIndex = 2;
@@ -318,5 +349,15 @@ public class MainDrawerActivity extends AppCompatActivity implements View.OnClic
             loadHomeFragment();
         }
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(General.isClosed){
+            navItemIndex = 0;
+            CURRENT_TAG = TAG_BOOKING;
+            loadHomeFragment();
+        }
     }
 }

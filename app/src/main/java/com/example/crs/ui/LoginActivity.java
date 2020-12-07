@@ -51,9 +51,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         general = new General(this);
         sharedpreferences = getSharedPreferences(general.shared_name,
                 Context.MODE_PRIVATE);
-        if(Build.VERSION.SDK_INT>= Build.VERSION_CODES.M){
-            getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
-        }
+//        if(Build.VERSION.SDK_INT>= Build.VERSION_CODES.M){
+//            getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+//        }
 
 
 
@@ -96,7 +96,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                 editor.putString(General.unique_id,userListResponseData.get(0).getUniqueId());
                                 editor.commit();
                                 general.nextpage(MainDrawerActivity.class);
+                                Intent in = new Intent(LoginActivity.this,MenuActivity.class);
+                                in.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                LoginActivity.this.finish();
                             }else{
+                                Toast.makeText(LoginActivity.this,"Invalid UserName or Password..",Toast.LENGTH_LONG).show();
+                                stopProgressbar();
                                 v.setEnabled(true);
                             }
                         }
