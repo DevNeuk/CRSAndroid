@@ -70,6 +70,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     public void onLoginClick(View View){
         startActivity(new Intent(this,RegisterActivity.class));
         overridePendingTransition(R.anim.slide_in_right,R.anim.stay);
+        finish();
     }
 
     @Override
@@ -95,9 +96,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                 editor.putString(General.role, userListResponseData.get(0).getRole());
                                 editor.putString(General.unique_id,userListResponseData.get(0).getUniqueId());
                                 editor.commit();
-                                general.nextpage(MainDrawerActivity.class);
-                                Intent in = new Intent(LoginActivity.this,MenuActivity.class);
-                                in.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                               // general.nextpage(MainDrawerActivity.class);
+                                Intent in = new Intent(LoginActivity.this,MainDrawerActivity.class);
+                                in.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                startActivity(in);
                                 LoginActivity.this.finish();
                             }else{
                                 Toast.makeText(LoginActivity.this,"Invalid UserName or Password..",Toast.LENGTH_LONG).show();
@@ -130,4 +132,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             }
         }, 1000);
     }
+
+
+
 }

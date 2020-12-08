@@ -59,6 +59,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     public void onLoginClick(View view) {
         startActivity(new Intent(this, LoginActivity.class));
         overridePendingTransition(R.anim.slide_in_left, android.R.anim.slide_out_right);
+        finish();
 
     }
 
