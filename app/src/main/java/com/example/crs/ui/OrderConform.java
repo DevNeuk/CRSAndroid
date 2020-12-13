@@ -56,7 +56,7 @@ public class OrderConform extends AppCompatActivity implements View.OnClickListe
     private SharedPreferences sharedpreferences;
     General general;
     float afterdis = 0;
-    String strSelectedDate;
+    String strSelectedDate=null;
     int nItemCount = 0;
     View view;
     @Override
@@ -170,24 +170,24 @@ public class OrderConform extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
+        if(strSelectedDate!=null&&strSelectedDate.length()!=0) {
+            BookingReq req = new BookingReq();
+            req.setUniqueId(sharedpreferences.getString(General.unique_id, null));
+            req.setTotalCount(nItemCount + "");
+            req.setBookingStatus("Confirmed");
+            req.setTotalPrice(afterdis + "");
+            req.setBooking_timeslot(strSelectedDate);
+            req.setItems(menu_order);
+            view.setVisibility(View.VISIBLE);
 
-        BookingReq req = new BookingReq();
-        req.setUniqueId(sharedpreferences.getString(General.unique_id, null));
-        req.setTotalCount(nItemCount+"");
-        req.setBookingStatus("Confirm");
-        req.setTotalPrice(afterdis+"");
-        req.setBooking_timeslot(strSelectedDate);
-        req.setItems(menu_order);
-        view.setVisibility(View.VISIBLE);
-
-        (Api.getClient().sendBookingInfo(req)).
-                enqueue(new Callback<StatusResponse>() {
-                    @Override
-                    public void onResponse(Call<StatusResponse> call, Response<StatusResponse> response) {
-                        // if error occurs in network transaction then we can get the error in this method.
-                        Log.e("TAG", "onSuccess: "+response.body());
-                        view.setVisibility(View.GONE);
-                        Toast.makeText(OrderConform.this,"Order SuccessFull",Toast.LENGTH_LONG).show();
+            (Api.getClient().sendBookingInfo(req)).
+                    enqueue(new Callback<StatusResponse>() {
+                        @Override
+                        public void onResponse(Call<StatusResponse> call, Response<StatusResponse> response) {
+                            // if error occurs in network transaction then we can get the error in this method.
+                            Log.e("TAG", "onSuccess: " + response.body());
+                            view.setVisibility(View.GONE);
+                            Toast.makeText(OrderConform.this, "Order SuccessFull", Toast.LENGTH_LONG).show();
 //                        if (getSupportFragmentManager().getFragments() != null && getSupportFragmentManager().getFragments().size() > 0) {
 //                            for (int i = 0; i < getSupportFragmentManager().getFragments().size(); i++) {
 //                                Fragment mFragment = getSupportFragmentManager().getFragments().get(i);
@@ -199,18 +199,22 @@ public class OrderConform extends AppCompatActivity implements View.OnClickListe
 //                        Intent in = new Intent(OrderConform.this,MainDrawerActivity.class);
 //                        in.putExtra("page","0");
 //                        startActivity(in);
-                        General.isClosed = true;
-                        OrderConform.this.finish();
-                    }
+                            General.isClosed = true;
+                            OrderConform.this.finish();
+                        }
 
-                    @Override
-                    public void onFailure(Call<StatusResponse> call, Throwable t) {
-                        // if error occurs in network transaction then we can get the error in this method.
-                        view.setVisibility(View.GONE);
-                        Toast.makeText(OrderConform.this,t.toString(),Toast.LENGTH_LONG).show();
-                        Log.e("TAG", "onFailure: "+t.toString() );
-                    }
-                });
+                        @Override
+                        public void onFailure(Call<StatusResponse> call, Throwable t) {
+                            // if error occurs in network transaction then we can get the error in this method.
+                            view.setVisibility(View.GONE);
+                            Toast.makeText(OrderConform.this, t.toString(), Toast.LENGTH_LONG).show();
+                            Log.e("TAG", "onFailure: " + t.toString());
+                        }
+                    });
+        }else{
+
+            Toast.makeText(OrderConform.this, "Please select time slot", Toast.LENGTH_LONG).show();
+        }
 
     }
 
